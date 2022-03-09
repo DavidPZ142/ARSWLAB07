@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blueprints</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/webjars/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"  href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="js/apiclient.js"></script>
+    <script src="js/apimock.js"></script>
+    <script src="js/app.js"></script>
+
+
+</head>
+<body class="fondo">
+<div class="container">
+
+    <label> Autor</label>
+    <input type="text" id="author" placeholder="Ingrese autor">
+    <button type="button" class="btn btn-success" onclick="app.getBluePrintname($('#author').val())" >Get BluePrints</button>
+</div>
+<div class="container">
+    <div class="container">
+    <h2>Blueprints</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th> Nombre</th>
+            <th> # Puntos </th>
+            <th> Plano </th>
+        </tr>
+        
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+        <h2 id= "totalUserPoint"> </h2>
+
+
+
+
+</div>
+<div class="container">
+
+    <canvas id="myCanvas" width="300" height="300" style="border:1px solid #000000;"> </canvas>
+
+
+
+</div>
+
+</body>
+</html>
