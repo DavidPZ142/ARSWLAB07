@@ -2,12 +2,31 @@ var module = apiclient;
 var app=(function(){
     //var module = apimock;
 
-    var _author = null;
-    var _plano = null;
+    let _author = null;
+    let _plano = null;
     let puntos = null;
     let pointss =[];
-    
-    
+    let anterior =[];
+
+    function init(){
+        let canvas = $("#myCanvas")[0];
+
+        if (window.PointerEvent) {
+            canvas.addEventListener("pointerdown", function (event) {
+                let offset = app.getOffset(canvas);
+                x = event.pageX - offset.left;
+                y = event.pageY - offset.top;
+                console.log(x, y);
+                anterior.push({
+                    x: x,
+                    y: y
+                })
+                app.drawNewPoints(anterior);
+                console.log(anterior);
+            })
+        }
+    }
+
 
     function getBluePrintname(author){
         _author = author;
@@ -52,8 +71,9 @@ var app=(function(){
             let canvasd = canvas.getContext("2d");
             app.clearCanvas();
             console.log(blueprint)
-            app.drawNewPoints(blueprint.points);
+            anterior = blueprint.points
             for (let i =1 ; i< blueprint.points.length; i++){
+
                 canvasd.moveTo(blueprint.points[i-1].x,blueprint.points[i-1].y);
                 canvasd.lineTo(blueprint.points[i].x,blueprint.points[i].y);
                 canvasd.stroke();
@@ -68,26 +88,6 @@ var app=(function(){
         canvas2d.beginPath();
     }
 
-    function init(){
-        let canvas = $("#prueba")[0];
-        let canvas2d = canvas.getContext("2d");
-        if (window.PointerEvent){
-            canvas.addEventListener("pointerdown",function(event){
-                let offset = app.getOffset(canvas);
-                x = event.pageX - offset.left;
-                y = event.pageY - offset.top;
-                console.log(x,y);
-                pointss.push({
-                    x:x,
-                    y:y
-                })
-            
-                
-            })
-            
-            
-        }
-    }
 
     /*Esta función se encuentra en el foro del laboratorio*/
     function getOffset(obj){
@@ -105,23 +105,36 @@ var app=(function(){
     }
 
     function drawNewPoints(pointss){
-        let canvas = $("#prueba")[0];
+        console.log("Entre a drawnews")
+        let canvas = $("#myCanvas")[0];
         let canvasd = canvas.getContext("2d");
-        for (let i =1 ; i< pointss.lenght; i++){
-            canvasd.moveTo(pointss[i-1].x,pointss[i-1].y);
-            canvasd.lineTo(pointss[i].x,pointss[i].y);
-            canvasd.stroke();
-        }
 
-
+        canvasd.moveTo(pointss[pointss.length-2].x,pointss[pointss.length-2].y);
+        canvasd.lineTo(pointss[pointss.length-1].x,pointss[pointss.length-1].y);
+        canvasd.stroke();
     }
+
+
+    function  putBlueprints(){
+        console.log(_author)
+        module.putBlueprints(_author,_plano,anterior)
+            /*PRomesa cumple papel de callback*/
+            .then(function (data){
+                //mapFunction();
+                getBluePrintname(_author,mapFunction)
+            });
+    }
+
+
+
     return{
         getBluePrintname : getBluePrintname,
         draw: draw,
         clearCanvas : clearCanvas,
         getOffset: getOffset,
         init: init,
-        drawNewPoints : drawNewPoints
+        drawNewPoints : drawNewPoints,
+        putBlueprints: putBlueprints
     };
 
 })();

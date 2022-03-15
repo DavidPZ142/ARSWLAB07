@@ -4,9 +4,7 @@ var apiclient = (function (){
         getBlueprintsByAuthor: function (author, callback){
             //console.log(author)
             $.get("/v1/blueprint/"+author, function (data){
-
                 callback( data);
-
             }).fail(function (){
                 alert("Error");
             });
@@ -18,8 +16,30 @@ var apiclient = (function (){
             }).fail(function (){
                 alert("Error");
             });
-        }
-    }
+        },
+
+        addBlueprints: function (author,name,points){
+            return $.ajax({
+                url: "/v1/blueprint/",
+                type: 'POST',
+                data: JSON.stringify({author:author, name:name, points:points}),
+                contentType: "application/json"
+            }).fail(function (){
+                console.log("Error")
+            });
+        },
 
 
-})();
+        putBlueprints :function (author,name,points){
+
+           return $.ajax({
+               url: "/v1/blueprint/"+author+"/"+name,
+               type: 'PUT',
+               data: JSON.stringify({author:author, name:name, points:points}),
+               contentType: "application/json"
+           }).fail(function (){
+               console.log("Error");
+           });
+       }
+
+}) () ;
