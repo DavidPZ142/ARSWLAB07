@@ -19,38 +19,41 @@
 <div class="container">
 
     <label> Autor</label>
-    <input type="text" id="author" placeholder="Ingrese autor">
+    <input type="text"  id="author" placeholder="Ingrese autor">
     <button type="button" class="btn btn-success" onclick="app.getBluePrintname($('#author').val())" >Get BluePrints</button>
 </div>
 <div class="container">
-    <div class="container">
-    <h2>Blueprints</h2>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th> Nombre</th>
-            <th> # Puntos </th>
-            <th> Plano </th>
-        </tr>
-        
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-    </table>
+    <div class="row">
+    <div class="col-sm-5">
+        <h2 id = "currentauthor"></h2>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th> Nombre</th>
+                <th> # Puntos </th>
+                <th> Plano </th>
+            </tr>
+
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
         <h2 id= "totalUserPoint"> </h2>
 
+    </div>
+        <div class="col-sm-5">
+            <h3 id = "currenBlueprint"> </h3>
+            <input type="text" id="ID" placeholder="Ingrese nombre de la obra">
+            <button type="button" class="btn btn-success" onclick="app.addBlueprint($('#ID').val())">Add blueprint</button>
+            <canvas id="myCanvas" width="300" height="300" style="border:1px solid #000000;"> </canvas>
+            <br>
+            <button type="button" class="btn btn-success" onclick="app.putBlueprints()"> Save/Update</button>
+            <button type="button" class="btn btn-danger" onclick="app.deleteBlueprint()" >Delete blueprint</button>
 
-
-
+        </div>
+    </div>
 </div>
-<div class="container">
 
-    <canvas id="myCanvas" width="300" height="300" style="border:1px solid #000000;"> </canvas>
-    <button type="button" class="btn btn-success" onclick="app.putBlueprints()"> Save/Update</button>
-
-
-
-</div>
 
 </body>
 </html>

@@ -92,6 +92,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
     @Override
     public void deleteBlueprint(String author, String name){
+
         blueprints.remove(new Tuple<>(author, name));
     }
 

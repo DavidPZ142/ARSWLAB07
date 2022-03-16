@@ -5,7 +5,7 @@ var app=(function(){
     let _author = null;
     let _plano = null;
     let puntos = null;
-    let pointss =[];
+    let hola = null;
     let anterior =[];
 
     function init(){
@@ -22,7 +22,7 @@ var app=(function(){
                     y: y
                 })
                 app.drawNewPoints(anterior);
-                console.log(anterior);
+
             })
         }
     }
@@ -50,6 +50,7 @@ var app=(function(){
                 $('#tbody').html(html)    
             })
             $('#totalUserPoint').html("Total user points: " + puntos)
+            $('#currentauthor').html(_author + "'s Blueprints")
 
             /*No sirvio
             let total = variable.reduce(function(sum,num){
@@ -70,7 +71,7 @@ var app=(function(){
             let canvas = $("#myCanvas")[0];
             let canvasd = canvas.getContext("2d");
             app.clearCanvas();
-            console.log(blueprint)
+
             anterior = blueprint.points
             for (let i =1 ; i< blueprint.points.length; i++){
 
@@ -78,6 +79,8 @@ var app=(function(){
                 canvasd.lineTo(blueprint.points[i].x,blueprint.points[i].y);
                 canvasd.stroke();
             }
+
+            $('#currenBlueprint').html("Current blueprint : " + _plano);
 
         })
     }
@@ -105,7 +108,7 @@ var app=(function(){
     }
 
     function drawNewPoints(pointss){
-        console.log("Entre a drawnews")
+
         let canvas = $("#myCanvas")[0];
         let canvasd = canvas.getContext("2d");
 
@@ -116,13 +119,48 @@ var app=(function(){
 
 
     function  putBlueprints(){
-        console.log(_author)
+
         module.putBlueprints(_author,_plano,anterior)
             /*PRomesa cumple papel de callback*/
             .then(function (data){
                 //mapFunction();
                 getBluePrintname(_author,mapFunction)
             });
+    }
+
+    function addBlueprint(name){
+        if (name == ""){
+            alert("Ingrese nombre del plano")
+        }
+        else {
+
+
+            app.clearCanvas();
+            let blueprint = {
+                author: _author,
+                name: name,
+                points: anterior
+            };
+
+            module.addBlueprints(blueprint)
+                .then(function () {
+                    app.getBluePrintname(_author, mapFunction);
+                })
+
+
+        }
+
+    }
+
+    function deleteBlueprint(){
+        if (_author != ""){
+            module.deleteBlueprint(_author,_plano)
+                .then(function (){
+                    app.clearCanvas();
+                    app.getBluePrintname(_author)
+                })
+
+        }
     }
 
 
@@ -134,7 +172,9 @@ var app=(function(){
         getOffset: getOffset,
         init: init,
         drawNewPoints : drawNewPoints,
-        putBlueprints: putBlueprints
+        putBlueprints: putBlueprints,
+        addBlueprint: addBlueprint,
+        deleteBlueprint: deleteBlueprint
     };
 
 })();
