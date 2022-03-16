@@ -1,3 +1,8 @@
+## Autores 🧠✒️
+
+David Pérez Mejia
+Nicolas Camahco
+
 #### Escuela Colombiana de Ingeniería
 #### Procesos de desarrollo de software - PDSW
 #### Construción de un cliente 'grueso' con un API REST, HTML5, Javascript y CSS3. Parte II.
